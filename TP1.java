@@ -82,6 +82,6 @@ public class TP1 {
             return;
         }
 
-
+        scan.close();
     }
 }
