@@ -60,8 +60,10 @@ public class TP3 {
 
         } while (iChoix != 0);
     }
+
     public static void afficherMenu()
     {
+        //Menu
         System.out.println("\nBiblio Numérique TP3");
         System.out.println("1. Ajouter un livre");
         System.out.println("2. Afficher tous les livres");
@@ -73,8 +75,10 @@ public class TP3 {
         System.out.println("0. Quitter");
         System.out.println("Entrez votre choix: ");
     }
-    public static void ajouterLivre() {
-        //Si le nombre de livres atteint le max, donc 100
+
+    public static void ajouterLivre() 
+    {
+        //Si le nombre de livres atteint le max, donc 100 message d'erreur
         if (iNbLivres == iMAX) 
         {
             System.out.println("");
@@ -85,7 +89,7 @@ public class TP3 {
         System.out.println("Entrez le Titre: ");
         String sTitre = scan.nextLine();
 
-        //Si sa donne -1= livre existe deja
+        //Si sa donne -1 sa veut dire que livre existe deja
         if (chercherIndex(sTitre) != -1) 
         {
             System.out.println("");
@@ -112,7 +116,7 @@ public class TP3 {
         sLivres[iNbLivres][0] = sTitre;
         sLivres[iNbLivres][4] = "false";
 
-        iNbLivres++;
+        iNbLivres++;//Ajout dans le nombre de livres
         System.out.println("Livre ajouté");
     }
 
@@ -131,7 +135,7 @@ public class TP3 {
 
     public static void rechercherParTitre()
     {
-        System.out.println("Titre de livre a rechercher: ");
+        System.out.println("Titre du livre a rechercher? ");
         String sTitre = scan.nextLine();
         int iIndex = chercherIndex(sTitre);
         //Si le livre existe
@@ -156,7 +160,7 @@ public class TP3 {
             System.out.println("Livre inexistant");
             return;
         }
-
+        // Quand un livre est supprimer tout les livres a sa droites "avancent" de 1 dans la liste de livre car il est supprimer
         for (int i=iIndex; i<iNbLivres-1; i++) {
             sLivres[i] = sLivres[i + 1];
         }
@@ -171,6 +175,7 @@ public class TP3 {
         String sCategorie = scan.nextLine();
         boolean bTrouve = false;
 
+        //On parcourt tous les livres dans la biblio et on affiche ceux qui la catégorie correspond à celle demandée
         for (int i =0; i < iNbLivres; i++) {
             if (sLivres[i][2].equalsIgnoreCase(sCategorie)) {
                 afficherLivre(i);
@@ -188,9 +193,12 @@ public class TP3 {
         String sTitre = scan.nextLine();
 
         int iIndex = chercherIndex(sTitre);
-        if (iIndex == -1) {
+        if (iIndex == -1)
+        {
             System.out.println("Livre introuvable.");
-        } else if (sLivres[iIndex][4].equals("true")) {
+        } 
+        else if (sLivres[iIndex][4].equals("true"))//Empecher une deuxieme reservation
+        {
             System.out.println("Le livre est déja réservé.");
         } 
         else 
@@ -199,7 +207,9 @@ public class TP3 {
             System.out.println("Livre réservé.");
         }
     }
-    public static void retournerLivre() {
+
+    public static void retournerLivre() 
+    {
         System.out.print("Livre à retourner: ");
         String titre = scan.nextLine();
         int iIndex = chercherIndex(titre);
@@ -207,10 +217,6 @@ public class TP3 {
         if (iIndex == -1)
         {
             System.out.println("Le livre est introuvable.");
-        } 
-        else if (sLivres[iIndex][4].equals("false")) 
-        {
-            System.out.println("Ce livre n'était pas réservé");
         }
         else 
         {
@@ -218,7 +224,10 @@ public class TP3 {
             System.out.println("Le livre est retourner");
         }
     }
-    public static int chercherIndex(String sTitre) {
+
+    public static int chercherIndex(String sTitre) 
+    {
+        //Cette méthode parcourt le tableau des livres et retourne l’index du livre si le titre est trouvé, sinon elle retourne -1.
         for (int i = 0; i < iNbLivres; i++)
         {
             if (sLivres[i][0].equalsIgnoreCase(sTitre)) 
